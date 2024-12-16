@@ -1,4 +1,4 @@
-package toml
+package tomltools
 
 import (
 	"github.com/BurntSushi/toml"
@@ -6,12 +6,12 @@ import (
 )
 
 type TEMPLATE struct {
-	Directories []string `toml:"directories"`
-	Files       []string `toml:"files"`
-	Commands    []string `toml:"commands"`
+	Directories []string `tomltools:"directories"`
+	Files       []string `tomltools:"files"`
+	Commands    []string `tomltools:"commands"`
 }
 
-func Get(file *os.File, name string) (TEMPLATE, error) {
+func Get(file *os.File) (TEMPLATE, error) {
 	var template TEMPLATE
 
 	if _, err := toml.DecodeReader(file, &template); err != nil {

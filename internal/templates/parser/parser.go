@@ -2,11 +2,11 @@ package parser
 
 import (
 	"os/exec"
-	"sea/internal/toml"
+	"sea/internal/tomltools"
 	"strings"
 )
 
-func Pars(templ toml.TEMPLATE, name string, par bool) error {
+func Pars(templ tomltools.TEMPLATE, name string, par bool) error {
 	cmd := exec.Command("mkdir", templ.Directories...)
 	err := cmd.Run()
 	if err != nil {
