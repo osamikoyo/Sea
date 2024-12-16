@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func Pars(templ tomltools.TEMPLATE, name string, par bool) error {
+func Pars(templ tomltools.TEMP, name string, par bool) error {
 	cmd := exec.Command("mkdir", templ.Directories...)
 	err := cmd.Run()
 	if err != nil {

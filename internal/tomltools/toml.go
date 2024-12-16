@@ -5,17 +5,23 @@ import (
 	"os"
 )
 
-type TEMPLATE struct {
-	Directories []string `tomltools:"directories"`
-	Files       []string `tomltools:"files"`
-	Commands    []string `tomltools:"commands"`
+type Data struct {
+	File string `toml:"file"`
+	Data string `toml:"data"`
 }
 
-func Get(file *os.File) (TEMPLATE, error) {
-	var template TEMPLATE
+type TEMP struct {
+	Directories []string `toml:"directories"`
+	Files       []string `toml:"files"`
+	Commands    []string `toml:"commands"`
+	Contents    []Data   `toml:"contents"`
+}
+
+func Get(file *os.File) (TEMP, error) {
+	var template TEMP
 
 	if _, err := toml.DecodeReader(file, &template); err != nil {
-		return TEMPLATE{}, err
+		return TEMP{}, err
 	}
 
 	return template, nil

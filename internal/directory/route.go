@@ -2,7 +2,6 @@ package directory
 
 import (
 	"os"
-	"os/exec"
 )
 
 func GetTempl(name string) (*os.File, error) {
@@ -19,6 +18,15 @@ func GetTempl(name string) (*os.File, error) {
 	return file, nil
 }
 func Create() error {
-	cmd := exec.Command("mkdir", "~/.sea")
-	return cmd.Run()
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+
+	err = os.Mkdir(home+"/.sea", 0755)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
