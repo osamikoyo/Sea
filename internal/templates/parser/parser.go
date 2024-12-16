@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"io/ioutil"
 	"os/exec"
 	"sea/internal/tomltools"
 	"strings"
@@ -20,7 +21,9 @@ func Pars(templ tomltools.TEMP, name string, par bool) error {
 	}
 
 	cmd = exec.Command("go", "mod", "init", name)
-
+	if err := cmd.Run(); err != nil {
+		return err
+	}
 	if par {
 		var ch chan error
 		for _, command := range templ.Commands {
@@ -53,6 +56,13 @@ func Pars(templ tomltools.TEMP, name string, par bool) error {
 			if err != nil {
 				return err
 			}
+		}
+	}
+
+	for _, content := range templ.Contents {
+		err = ioutil.WriteFile(content.File, []byte(content.Data), 0644)
+		if err != nil {
+			return err
 		}
 	}
 

@@ -10,7 +10,7 @@ func GetTempl(name string) (*os.File, error) {
 		return nil, err
 	}
 
-	file, err := os.Open(homedir + "/.sea/" + name + ".tomltools")
+	file, err := os.Open(homedir + "/.sea/" + name + ".toml")
 	if err != nil {
 		return nil, err
 	}
