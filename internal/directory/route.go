@@ -2,6 +2,7 @@ package directory
 
 import (
 	"os"
+	"os/exec"
 )
 
 func GetTempl(name string) (*os.File, error) {
@@ -58,4 +59,14 @@ data = "fd"
 		return err
 	}
 	return nil
+}
+
+func Install(filename string) error {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+
+	cmd := exec.Command("mv", filename, home+"/.sea")
+	return cmd.Run()
 }

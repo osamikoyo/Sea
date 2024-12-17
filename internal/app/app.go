@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"os"
 	"sea/internal/directory"
 	"sea/internal/loger"
@@ -26,7 +27,7 @@ func Run(args []string) {
 		if err = parser.Pars(templ, os.Args[3], false); err != nil {
 			loggers.Error().Err(err)
 		}
-		fmt.Println(`
+		fmt.Println(color.CyanString(`
   ####   ######    ##
  #       #        #  #
   ####   #####   #    #
@@ -34,11 +35,22 @@ func Run(args []string) {
  #    #  #       #    #
   ####   ######  #    #
 
-`)
+`))
 		loggers.Info().Msg("Template " + os.Args[2] + " parsed successfully")
 	case "create":
 		if err := directory.Create(); err != nil {
 			loggers.Error().Err(err)
 		}
+	case "install":
+		if err := directory.Install(os.Args[2]); err != nil {
+			loggers.Error().Err(err)
+		}
+		loggers.Info().Msg("Template installed successfully")
+
+	case "generate":
+		if err := directory.GenerateToml(os.Args[2]); err != nil {
+			loggers.Error().Err(err)
+		}
+		loggers.Info().Msg("Templ Generated successfully!")
 	}
 }
