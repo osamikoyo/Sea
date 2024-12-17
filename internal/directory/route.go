@@ -42,6 +42,8 @@ directories = ["dir1", "dir2", "dir3"]
 files = ["file1.txt", "file2.txt"]
 comands = ["command1", "command2"]
 
+deps = ["gorm.io/gorm", "github.com/go-chi/chi/v5"]
+
 [[contents]]
 file = "file1.txt"
 data = "hello"
@@ -49,6 +51,8 @@ data = "hello"
 [[contents]]
 file = "file2.txt"
 data = "fd"
+
+
 		
 `)); err != nil {
 		return err

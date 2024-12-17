@@ -65,6 +65,12 @@ func Pars(templ tomltools.TEMP, name string, par bool) error {
 			return err
 		}
 	}
+	for _, d := range templ.Deps {
+		cmd := exec.Command("go", "get", d)
+		if err := cmd.Run(); err != nil {
+			return err
+		}
+	}
 
 	return nil
 }

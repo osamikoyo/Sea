@@ -15,6 +15,7 @@ type TEMP struct {
 	Files       []string `toml:"files"`
 	Commands    []string `toml:"commands"`
 	Contents    []Data   `toml:"contents"`
+	Deps        []string `toml:"deps"`
 }
 
 func Get(file *os.File) (TEMP, error) {

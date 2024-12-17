@@ -10,12 +10,12 @@ import (
 )
 
 func Run(args []string) {
-	logger := loger.New()
+	loggers := loger.New()
 	switch args[1] {
 	case "search":
 		body, err := directory.GetTempl(os.Args[2])
 		if err != nil {
-			logger.Error().Err(err)
+			loggers.Error().Err(err)
 		}
 
 		templ, err := tomltools.Get(body)
@@ -24,7 +24,7 @@ func Run(args []string) {
 		}
 
 		if err = parser.Pars(templ, os.Args[3], false); err != nil {
-			logger.Error().Err(err)
+			loggers.Error().Err(err)
 		}
 		fmt.Println(`
   ####   ######    ##
@@ -35,10 +35,10 @@ func Run(args []string) {
   ####   ######  #    #
 
 `)
-		logger.Info().Msg("Template " + os.Args[2] + " parsed successfully")
+		loggers.Info().Msg("Template " + os.Args[2] + " parsed successfully")
 	case "create":
 		if err := directory.Create(); err != nil {
-			logger.Error().Err(err)
+			loggers.Error().Err(err)
 		}
 	}
 }
