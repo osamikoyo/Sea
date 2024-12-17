@@ -30,3 +30,28 @@ func Create() error {
 
 	return nil
 }
+
+func GenerateToml(name string) error {
+	file, err := os.Create(name + ".toml")
+	if err != nil {
+		return err
+	}
+
+	if _, err := file.Write([]byte(`
+directories = ["dir1", "dir2", "dir3"]
+files = ["file1.txt", "file2.txt"]
+comands = ["command1", "command2"]
+
+[[contents]]
+file = "file1.txt"
+data = "hello"
+
+[[contents]]
+file = "file2.txt"
+data = "fd"
+		
+`)); err != nil {
+		return err
+	}
+	return nil
+}
