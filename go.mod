@@ -1,4 +1,4 @@
-module sea
+module gitlab.com/osamikoyo/sea
 
 go 1.23.1
 

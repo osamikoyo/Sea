@@ -3,11 +3,11 @@ package app
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"gitlab.com/osamikoyo/sea/internal/directory"
+	"gitlab.com/osamikoyo/sea/internal/loger"
+	"gitlab.com/osamikoyo/sea/internal/templates/parser"
+	"gitlab.com/osamikoyo/sea/internal/tomltools"
 	"os"
-	"sea/internal/directory"
-	"sea/internal/loger"
-	"sea/internal/templates/parser"
-	"sea/internal/tomltools"
 )
 
 func Run(args []string) {

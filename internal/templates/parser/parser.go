@@ -3,7 +3,7 @@ package parser
 import (
 	"io/ioutil"
 	"os/exec"
-	"sea/internal/tomltools"
+	"gitlab.com/osamikoyo/sea/internal/tomltools"
 	"strings"
 )
 
@@ -60,7 +60,10 @@ func Pars(templ tomltools.TEMP, name string, par bool) error {
 	}
 
 	for _, content := range templ.Contents {
-		err = ioutil.WriteFile(content.File, []byte(content.Data), 0644)
+
+		cnt := strings.Replace(content.Data, "$", name, -1)
+
+		err = ioutil.WriteFile(content.File, []byte(cnt), 0644)
 		if err != nil {
 			return err
 		}
