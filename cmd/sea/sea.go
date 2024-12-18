@@ -1,8 +1,8 @@
-package sea
+package main
 
 import (
-	"os"
 	"gitlab.com/osamikoyo/sea/internal/app"
+	"os"
 )
 
 func main() {

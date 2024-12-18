@@ -1,9 +1,9 @@
 package parser
 
 import (
+	"gitlab.com/osamikoyo/sea/internal/tomltools"
 	"io/ioutil"
 	"os/exec"
-	"gitlab.com/osamikoyo/sea/internal/tomltools"
 	"strings"
 )
 
