@@ -1,0 +1,109 @@
+directories = ["cmd", "internal", "internal/app", "internal/server", "internal/loger", "internal/data",
+                "internal/data/models", "pkg", "pkg/proto"]
+files = ["cmd/main.go", "internal/app/app.go", "internal/server/server.go", "internal/loger/loger.go",
+        "internal/data/db.go", "internal/data/models/models.go"]
+comands = ["echo hello"]
+
+[[contents]]
+file = "cmd/main.go"
+data = """
+package main
+
+import "$/internal/app"
+
+func main(){
+    apps := app.Init()
+    apps.Run()
+}
+
+"""
+
+[[contents]]
+file = "internal/app/app.go"
+data = """
+package app
+
+import (
+    "$/internal/loger"
+    "$/internal/data"
+    "google.golang.org/grpc"
+    "net"
+	"net/http"
+)
+
+type App struct{
+    lis net.Lisnener
+    gRPC grpc.Server
+    Logger loger.Loger
+    Data data.DB
+}
+
+func Init(){
+    logger := loger.New()
+	db := data.Ns()
+	grpcserver := grpc.NewServer()
+	lis, err := net.Listen("tcp", "localhost:50051")
+	if err != nil {
+		logger.Error().Err(err)
+	}
+
+	return &App{
+		data:   db,
+		logger: logger,
+		gRPC:   grpcserver,
+		lis:    lis,
+	}
+}
+
+func (a App) Run() {
+
+}
+
+"""
+
+[[contents]]
+file = "internal/data/db.go"
+data = """
+package data
+
+import (
+    "gorm.io/driver/sqlite"
+    "gorm.io/gorm"
+)
+
+type Data struct{
+    *gorm.DB
+}
+
+func New() Data {
+    db, _ := gorm.Open(sqlite.Open("storage/main.db")
+    return Data{db}
+}
+"""
+
+[[contents]]
+file = "internal/loger/loger.go"
+data = """
+package loger
+
+import (
+	"github.com/rs/zerolog"
+	"os"
+	"time"
+)
+
+type Loger struct {
+	*zerolog.Logger
+}
+
+func New() Loger {
+	logger := zerolog.New(
+		zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339},
+	).Level(zerolog.TraceLevel).With().Timestamp().Caller().Logger()
+
+	return Loger{Logger: &logger}
+}
+"""
+
+deps = ["github.com/rs/zerolog", "github.com/grpc-ecosystem/grpc-gateway/v2/runtime",
+        "google.golang.org/grpc", "gorm.io/driver/sqlite"]
