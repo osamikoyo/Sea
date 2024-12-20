@@ -12,6 +12,11 @@ import (
 
 func Run(args []string) {
 	loggers := loger.New()
+	if len(os.Args) < 2 {
+		loggers.Info().Msg("to little arguments, use sea info")
+		return
+	}
+
 	switch args[1] {
 	case "search":
 		body, err := directory.GetTempl(os.Args[2])
@@ -52,5 +57,7 @@ func Run(args []string) {
 			loggers.Error().Err(err)
 		}
 		loggers.Info().Msg("Templ Generated successfully!")
+	default:
+		loggers.Info().Msg("arguments are not right,please, use sea info")
 	}
 }
