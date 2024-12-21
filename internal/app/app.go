@@ -18,6 +18,8 @@ func Run(args []string) {
 	}
 
 	switch args[1] {
+	case "info":
+
 	case "search":
 		body, err := directory.GetTempl(os.Args[2])
 		if err != nil {

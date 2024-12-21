@@ -1,6 +1,7 @@
 package directory
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 )
@@ -69,4 +70,16 @@ func Install(filename string) error {
 
 	cmd := exec.Command("mv", filename, home+"/.sea")
 	return cmd.Run()
+}
+
+func InfoPrintln() {
+	fmt.Println(`
+search - use for parsing templates, by name without .toml
+for exempl: sea search service 
+programm will search for service.toml in directory and pars it
+
+create - creating a directory
+
+install - move your .toml template in directory
+`)
 }
