@@ -25,7 +25,7 @@ func Create() error {
 		return err
 	}
 
-	err = os.Mkdir(home+"/.sea", 0755)
+	err = os.Mkdir(home+"/.sea", 0755) // 0755 - права доступа
 	if err != nil {
 		return err
 	}

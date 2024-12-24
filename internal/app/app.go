@@ -48,6 +48,7 @@ func Run(args []string) {
 		if err := directory.Create(); err != nil {
 			loggers.Error().Err(err)
 		}
+		loggers.Info().Msg("Created successfully")
 	case "install":
 		if err := directory.Install(os.Args[2]); err != nil {
 			loggers.Error().Err(err)
