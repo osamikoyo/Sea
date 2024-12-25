@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func Pars(templ tomltools.TEMP, name string, par bool) error {
+func Pars(templ tomltools.TEMP, name string, par bool, git bool) error {
 	cmd := exec.Command("mkdir", templ.Directories...)
 	err := cmd.Run()
 	if err != nil {
@@ -70,6 +70,13 @@ func Pars(templ tomltools.TEMP, name string, par bool) error {
 	}
 	for _, d := range templ.Deps {
 		cmd := exec.Command("go", "get", d)
+		if err := cmd.Run(); err != nil {
+			return err
+		}
+	}
+
+	if git {
+		cmd := exec.Command("git", "init")
 		if err := cmd.Run(); err != nil {
 			return err
 		}

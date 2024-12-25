@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"fmt"
 	"github.com/fatih/color"
 	"gitlab.com/osamikoyo/sea/internal/directory"
@@ -19,19 +20,27 @@ func Run(args []string) {
 
 	switch args[1] {
 	case "info":
-
+		directory.InfoPrintln()
 	case "search":
 		body, err := directory.GetTempl(os.Args[2])
 		if err != nil {
 			loggers.Error().Err(err)
 		}
 
-		templ, err := tomltools.Get(body)
+		var git bool
+		git = false
+		for _, flag := range os.Args {
+			if flag == "-g" {
+				git = true
+			}
+		}
+
+		template, err := tomltools.Get(body)
 		if err != nil {
 			fmt.Println(err)
 		}
 
-		if err = parser.Pars(templ, os.Args[3], false); err != nil {
+		if err = parser.Pars(template, os.Args[3], false, git); err != nil {
 			loggers.Error().Err(err)
 		}
 		fmt.Println(color.CyanString(`
@@ -50,16 +59,25 @@ func Run(args []string) {
 		}
 		loggers.Info().Msg("Created successfully")
 	case "install":
+		if len(os.Args) < 3 {
+			err := errors.New("to low arguments, use sea info")
+			loggers.Error().Err(err)
+		}
 		if err := directory.Install(os.Args[2]); err != nil {
 			loggers.Error().Err(err)
 		}
 		loggers.Info().Msg("Template installed successfully")
 
 	case "generate":
+		if len(os.Args) < 3 {
+			err := errors.New("to low arguments, use sea info")
+			loggers.Error().Err(err)
+		}
+
 		if err := directory.GenerateToml(os.Args[2]); err != nil {
 			loggers.Error().Err(err)
 		}
-		loggers.Info().Msg("Templ Generated successfully!")
+		loggers.Info().Msg("Template Generated successfully!")
 	default:
 		loggers.Info().Msg("arguments are not right,please, use sea info")
 	}

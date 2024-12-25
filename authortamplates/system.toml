@@ -1,0 +1,9 @@
+
+directories = ["cmd", "internal", "internal/app", "internal/config", "internal/comands", "internal/loger", "internal/models"]
+files = ["cmd/main.go", "internal/app/app.go", "internal/config/config.go", "internal/comands/comands.go", "internal/loger/loger.go"]
+comands = ["command1", "command2"]
+
+deps = ["gorm.io/gorm"]
+
+
+		
