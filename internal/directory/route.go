@@ -78,8 +78,10 @@ search - use for parsing templates, by name without .toml
 for exempl: sea search service 
 programm will search for service.toml in directory and pars it
 
-create - creating a directory
+create - creating a .sea directory
 
 install - move your .toml template in directory
+
+generate - use to generate base template
 `)
 }
