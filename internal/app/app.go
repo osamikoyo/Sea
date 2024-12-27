@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"gitlab.com/osamikoyo/sea/internal/directory"
+	"gitlab.com/osamikoyo/sea/internal/gets"
 	"gitlab.com/osamikoyo/sea/internal/loger"
+	"gitlab.com/osamikoyo/sea/internal/saver"
 	"gitlab.com/osamikoyo/sea/internal/templates/parser"
 	"gitlab.com/osamikoyo/sea/internal/tomltools"
 	"os"
@@ -21,6 +23,42 @@ func Run(args []string) {
 	switch args[1] {
 	case "info":
 		directory.InfoPrintln()
+	case "remote":
+		if len(args) < 4 {
+			err := errors.New("to low arguments, use sea info")
+			loggers.Error().Err(err)
+		}
+
+		var save bool = false
+
+		for _, r := range args {
+			if r == "-s" {
+				save = true
+			}
+		}
+
+		template, err := gets.GetTemplateFromUrl(args[2])
+		if err != nil {
+			loggers.Error().Err(err)
+		}
+
+		if save {
+			if err = saver.Save(template, os.Args[3]); err != nil {
+				loggers.Error().Err(err)
+			}
+		}
+		var git bool
+		git = false
+		for _, flag := range os.Args {
+			if flag == "-g" {
+				git = true
+			}
+		}
+
+		if err = parser.Pars(template, os.Args[3], false, git); err != nil {
+			loggers.Error().Err(err)
+		}
+
 	case "search":
 		body, err := directory.GetTempl(os.Args[2])
 		if err != nil {
