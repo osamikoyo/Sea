@@ -42,7 +42,7 @@ func GenerateToml(name string) error {
 	if _, err := file.Write([]byte(`
 directories = ["dir1", "dir2", "dir3"]
 files = ["file1.txt", "file2.txt"]
-comands = ["command1", "command2"]
+commands = ["command1", "command2"]
 
 deps = ["gorm.io/gorm", "github.com/go-chi/chi/v5"]
 
@@ -73,10 +73,10 @@ func Install(filename string) error {
 }
 
 func InfoPrintln() {
-	fmt.Println(`
+	fmt.Print(`
 search - use for parsing templates, by name without .toml
-for exempl: sea search service 
-programm will search for service.toml in directory and pars it
+for exemple: sea search service 
+program will search for service.toml in directory and pars it
 
 create - creating a .sea directory
 

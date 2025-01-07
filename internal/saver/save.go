@@ -3,7 +3,7 @@ package saver
 import (
 	"fmt"
 	"github.com/BurntSushi/toml"
-	"gitlab.com/osamikoyo/sea/internal/tomltools"
+	"github.com/osamikoyo/sea/internal/tomltools"
 	"os"
 )
 

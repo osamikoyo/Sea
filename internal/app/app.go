@@ -4,12 +4,12 @@ import (
 	"errors"
 	"fmt"
 	"github.com/fatih/color"
-	"gitlab.com/osamikoyo/sea/internal/directory"
-	"gitlab.com/osamikoyo/sea/internal/gets"
-	"gitlab.com/osamikoyo/sea/internal/loger"
-	"gitlab.com/osamikoyo/sea/internal/saver"
-	"gitlab.com/osamikoyo/sea/internal/templates/parser"
-	"gitlab.com/osamikoyo/sea/internal/tomltools"
+	"github.com/osamikoyo/sea/internal/directory"
+	"github.com/osamikoyo/sea/internal/gets"
+	"github.com/osamikoyo/sea/internal/loger"
+	"github.com/osamikoyo/sea/internal/saver"
+	"github.com/osamikoyo/sea/internal/templates/parser"
+	"github.com/osamikoyo/sea/internal/tomltools"
 	"os"
 )
 
@@ -55,7 +55,7 @@ func Run(args []string) {
 			}
 		}
 
-		if err = parser.Pars(template, os.Args[3], false, git); err != nil {
+		if err = parser.Pars(template, os.Args[3], false, git, true); err != nil {
 			loggers.Error().Err(err)
 		}
 
@@ -78,7 +78,7 @@ func Run(args []string) {
 			fmt.Println(err)
 		}
 
-		if err = parser.Pars(template, os.Args[3], false, git); err != nil {
+		if err = parser.Pars(template, os.Args[3], false, git, true); err != nil {
 			loggers.Error().Err(err)
 		}
 		fmt.Println(color.CyanString(`

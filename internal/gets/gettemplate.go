@@ -3,7 +3,7 @@ package gets
 import (
 	"context"
 	"github.com/BurntSushi/toml"
-	"gitlab.com/osamikoyo/sea/internal/tomltools"
+	"github.com/osamikoyo/sea/internal/tomltools"
 	"io/ioutil"
 	"net/http"
 	"time"
